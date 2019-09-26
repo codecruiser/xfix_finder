@@ -50,4 +50,7 @@ class WordfixFinder:
                             possible_divitions.append(
                                 (prefix, word_cps, suffix)
                             )
+        # TODO: if root is not found then get just possible prefixes
+        #  and suffixes
+        # TODO: check also for cases without prefix or without suffix
         return possible_divitions
