@@ -14,3 +14,5 @@ class TestWordfixFinder(TestCase):
 
         self.wff.set_fixes(fixes)
         found_fixes = self.wff.search_for_fixes(self.word)
+
+        self.assertEqual(found_fixes, [('ab', 'cdef', 'g')])

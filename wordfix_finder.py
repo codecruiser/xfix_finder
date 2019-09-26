@@ -1,3 +1,4 @@
+import re
 
 
 class WordfixFinder:
@@ -36,6 +37,17 @@ class WordfixFinder:
                 possible_prefixes.append(fix)
             if word.endswith(fix):
                 possible_suffixes.append(fix)
-        # TODO: start combinning prefixes with suffixes starting from the
-        #  longest and try to check if after disjoining of the fixes from the
-        #  word it will find a root.
+
+        possible_divitions = []
+        for prefix in possible_prefixes:
+            for suffix in possible_suffixes:
+                word_cp = word
+                word_cpp = re.sub(r'^{}'.format(prefix), '', word_cp)
+                if word_cpp:
+                    word_cps = re.sub(r'{}$'.format(suffix), '', word_cpp)
+                    if word_cps and word_cps != word_cpp:
+                        if word_cps in self.fixes:
+                            possible_divitions.append(
+                                (prefix, word_cps, suffix)
+                            )
+        return possible_divitions
